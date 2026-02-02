@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuck Norris Jokes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #c41e3a;
+            --dark-red: #8b0000;
+            --black: #0a0a0a;
+            --off-white: #f5f5f0;
+            --gold: #d4af37;
+            --shadow: rgba(196, 30, 58, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: linear-gradient(135deg, var(--black) 0%, #1a0000 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(196, 30, 58, 0.03) 2px,
+                    rgba(196, 30, 58, 0.03) 4px
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 10vw, 5.5rem);
+            color: var(--red);
+            letter-spacing: 0.05em;
+            text-shadow: 
+                3px 3px 0 var(--dark-red),
+                6px 6px 20px rgba(196, 30, 58, 0.5);
+            line-height: 0.9;
+            margin-bottom: 10px;
+            transform: scaleY(1.1);
+        }
+
+        .subtitle {
+            font-family: 'Permanent Marker', cursive;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            transform: rotate(-2deg);
+        }
+
+        .joke-container {
+            background: var(--off-white);
+            border: 4px solid var(--red);
+            border-radius: 0;
+            padding: 40px 30px;
+            min-height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 
+                10px 10px 0 var(--dark-red),
+                10px 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+            animation: fadeIn 0.6s ease-out 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .joke-container::before {
+            content: '❝';
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 4rem;
+            color: var(--red);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+
+        .joke-container::after {
+            content: '❞';
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 4rem;
+            color: var(--red);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+
+        #joke-text {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            line-height: 1.7;
+            color: var(--black);
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        #joke-text.empty {
+            color: #666;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .button-wrapper {
+            text-align: center;
+            animation: fadeIn 0.6s ease-out 0.5s both;
+        }
+
+        button {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            letter-spacing: 0.08em;
+            padding: 18px 50px;
+            background: var(--red);
+            color: var(--off-white);
+            border: 3px solid var(--dark-red);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 
+                5px 5px 0 var(--dark-red),
+                5px 5px 20px rgba(0, 0, 0, 0.4);
+            transform: translateY(0);
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        button:hover {
+            background: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: 
+                7px 7px 0 var(--dark-red),
+                7px 7px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 
+                3px 3px 0 var(--dark-red),
+                3px 3px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: translateY(0);
+        }
+
+        .loader {
+            display: none;
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--off-white);
+            border-top: 5px solid var(--red);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader.active {
+            display: block;
+        }
+
+        .joke-animate {
+            animation: punchIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes punchIn {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Decorative corner elements */
+        .corner-decoration {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            border: 3px solid var(--red);
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .corner-decoration.top-left {
+            top: 20px;
+            left: 20px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-decoration.bottom-right {
+            bottom: 20px;
+            right: 20px;
+            border-left: none;
+            border-top: none;
+        }
+
+        @media (max-width: 600px) {
+            .joke-container {
+                padding: 30px 20px;
+                min-height: 180px;
+            }
+
+            button {
+                padding: 15px 40px;
+            }
+
+            .corner-decoration {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration bottom-right"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>CHUCK NORRIS</h1>
+            <div class="subtitle">FACTS GENERATOR</div>
+        </div>
+
+        <div class="joke-container">
+            <div id="joke-text" class="empty">Click the button below to unleash a Chuck Norris fact</div>
+            <div class="loader" id="loader"></div>
+        </div>
+
+        <div class="button-wrapper">
+            <button id="joke-btn">
+                <span>GET FACT</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const jokeText = document.getElementById('joke-text');
+        const jokeBtn = document.getElementById('joke-btn');
+        const loader = document.getElementById('loader');
+        const API_URL = 'https://api.chucknorris.io/jokes/random';
+
+        async function fetchJoke() {
+            // Disable button and show loader
+            jokeBtn.disabled = true;
+            jokeText.style.display = 'none';
+            loader.classList.add('active');
+
+            try {
+                const response = await fetch(API_URL);
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch joke');
+                }
+
+                const data = await response.json();
+                
+                // Hide loader and show joke with animation
+                setTimeout(() => {
+                    loader.classList.remove('active');
+                    jokeText.textContent = data.value;
+                    jokeText.classList.remove('empty');
+                    jokeText.style.display = 'block';
+                    jokeText.classList.add('joke-animate');
+                    
+                    // Remove animation class after it completes
+                    setTimeout(() => {
+                        jokeText.classList.remove('joke-animate');
+                    }, 500);
+                    
+                    jokeBtn.disabled = false;
+                }, 400);
+
+            } catch (error) {
+                loader.classList.remove('active');
+                jokeText.style.display = 'block';
+                jokeText.textContent = 'Error fetching joke. Chuck Norris broke the internet.';
+                jokeText.classList.add('empty');
+                jokeBtn.disabled = false;
+            }
+        }
+
+        // Add click event listener
+        jokeBtn.addEventListener('click', fetchJoke);
+
+        // Optional: Allow Enter key to trigger joke
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !jokeBtn.disabled) {
+                fetchJoke();
+            }
+        });
+    </script>
+</body>
+</html>
