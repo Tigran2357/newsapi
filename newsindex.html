@@ -303,6 +303,33 @@
             font-weight: 500;
         }
 
+        /* Read Badge */
+        .read-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-top: 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #16a34a;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.7);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
         /* Error */
         .error {
             background: #fff5f5;
@@ -517,6 +544,7 @@
                                 : ''
                             }
                             <p class="news-source">${source}</p>
+                            ${isRead(article.link) ? `<span class="read-badge">read ☑️</span>` : ''}
                         </div>
                     </div>
                 `;
@@ -559,8 +587,33 @@
             await fetchNews(false);
         }
 
-        // Open article in new tab
+        // --- read-tracking helpers ------------------------------------------
+        function getReadSet() {
+            try { return new Set(JSON.parse(localStorage.getItem('pulse_read') || '[]')); }
+            catch { return new Set(); }
+        }
+
+        function markRead(url) {
+            const set = getReadSet();
+            set.add(url);
+            localStorage.setItem('pulse_read', JSON.stringify([...set]));
+        }
+
+        function isRead(url) {
+            return getReadSet().has(url);
+        }
+        // ---------------------------------------------------------------------------
+
+        // Open article in new tab  &  mark it as read
         function openArticle(url) {
+            markRead(url);
+
+            // update the card that was just clicked — no full re-render needed
+            event.currentTarget.querySelector('.news-source').insertAdjacentHTML(
+                'afterend',
+                '<span class="read-badge">read ☑️</span>'
+            );
+
             window.open(url, '_blank');
         }
 
